@@ -1,13 +1,12 @@
-
 import java.util.Scanner;
 import java.lang.Math.*;
 
 public class Main{
 
 	private final static int WIDTH = 7, HEIGHT = 6;
-	private final static int MAX_HEIGHT = HEIGHT-1, MIN_COLUMN = 1;
-	private final static char BLANK = '.';
-	private final static int ERROR = -1;
+	private final static int max = HEIGHT-1, min = 1;
+	private final static char empty = '.';
+	private final static int err = -1;
 	
 	private static String winMessage = null;
 	
@@ -36,7 +35,7 @@ public class Main{
 private static void clear(){
 	for(int width=0; width < WIDTH; width++){
 		for(int height=0; height < HEIGHT; height++){
-			board[width][height]=BLANK;
+			board[width][height]=empty;
 		}
 	}	
 }
@@ -54,7 +53,7 @@ private static boolean isWinner(char token, String winMessage){
 private static boolean isBoardFull(){
 	for(int width=0; width < WIDTH; width++){
 		for(int height=0; height < HEIGHT; height++){
-			if(board[width][height]==BLANK){
+			if(board[width][height]==empty){
 				return false;
 			}
 		}
@@ -65,11 +64,11 @@ private static boolean isBoardFull(){
 
 private static boolean placeToken(int column){
 	for(int height=0; height < HEIGHT; height++){
-		if(board[column][MAX_HEIGHT]!= BLANK){
+		if(board[column][max]!= empty){
 			System.out.println("That column is full! Please select another one.");
 			return false;
 		}
-		else if (board[column][height]==BLANK){
+		else if (board[column][height]==empty){
 			board[column][height] = token;
 			return true;
 		}
@@ -89,11 +88,11 @@ private static int userInput(){
 	
 	while(flag == false){
 		while (!input.hasNextInt()) {
-				System.out.println("Enter an integer, please!");
+				System.out.println("Enter an integer");
 				input.nextLine();
 			}
 			
-			response = input.nextInt()- MIN_COLUMN;
+			response = input.nextInt()- min;
 			
 			if (response < WIDTH+1 && response >= 0){
 				column = response;
@@ -119,16 +118,16 @@ private static String checkForWin(char token, int row, int column){
 		winMessage="on a diagonal";
 	}
 	else if(checkVert(token, column) == true && checkHor(token, row) == true){
-		winMessage="on a vertical & a horizontal";
+		winMessage="on a vertical and a horizontal";
 	}
 	else if(checkVert(token, column) == true && checkDiagonal(token, row, column) == true){
-		winMessage="on a vertical & a diagonal";
+		winMessage="on a vertical and a diagonal";
 	}
 	else if(checkHor(token, row) == true && checkDiagonal(token, row, column) == true){
-		winMessage="on a horizontal & a diagonal";	
+		winMessage="on a horizontal and a diagonal";	
 	}
 	else if(checkVert(token, column) == true && checkHor(token, row) == true && checkDiagonal(token, row, column) == true){
-		winMessage="on a vertical & a horizontal & a diagonal";
+		winMessage="on a vertical and a horizontal  a diagonal";
 	}
 	else{
 		winMessage=null;
